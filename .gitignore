@@ -1,0 +1,16 @@
+# Artefatos locais de compilacao Arduino/ESP32
+build/
+tmp/
+*.bin
+*.elf
+*.hex
+*.map
+*.o
+*.a
+*.d
+
+# Arquivos locais do sistema e do editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
