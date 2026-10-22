@@ -10,6 +10,8 @@ Esta versão valida exclusivamente o caminho `Som → INMP441 → I²S → ESP32
 
 Abra [Monitor_Poluicao_Sonora_V01.ino](Monitor_Poluicao_Sonora_V01/Monitor_Poluicao_Sonora_V01.ino), mantendo o arquivo dentro da pasta `Monitor_Poluicao_Sonora_V01`.
 
+Para testar o LED integrado da DOIT ESP32 DEVKIT V1, abra [Teste_LED_Interno.ino](Teste_LED_Interno/Teste_LED_Interno.ino). Esse teste pisca o LED ligado ao GPIO 2 a cada 500 ms. Carregar o teste substitui temporariamente o firmware do microfone na placa; para voltar a captar áudio, carregue novamente o sketch de aquisição I²S.
+
 - Arduino IDE 2.
 - Pacote **esp32 by Espressif Systems 3.3.12**.
 - Placa **ESP32 Dev Module**; hardware ESP32 DEVKIT V1 / ESP32-D0WD-V3.
