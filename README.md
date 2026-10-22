@@ -10,13 +10,17 @@ Esta versão valida exclusivamente o caminho `Som → INMP441 → I²S → ESP32
 
 Abra [Monitor_Poluicao_Sonora_V01.ino](Monitor_Poluicao_Sonora_V01/Monitor_Poluicao_Sonora_V01.ino), mantendo o arquivo dentro da pasta `Monitor_Poluicao_Sonora_V01`.
 
+**Se a V0.1 mostrar apenas zeros com SCK→26, WS→25 e SD→33**, carregue [Diagnostico_INMP441_26_25_33.ino](Diagnostico_INMP441_26_25_33/Diagnostico_INMP441_26_25_33.ino). Ele lê os dois slots I²S de 32 bits e mostra `min`, `max`, a contagem de zeros e `OR` (todos os bits brutos observados) para cada canal. Com L/R em GND, o áudio deve responder ao som no canal `E`. O canal `D` pode ter valores indefinidos porque o microfone não o dirige; avalie se há resposta consistente à fala ou palma, não apenas se é diferente de zero. Se `E` e `D` permanecerem com `OR=0x00000000` e as leituras forem completas, o GPIO 33 não está recebendo dados úteis. Use Monitor Serial em **115200 baud** e confirme no texto inicial que o firmware correto foi carregado.
+
 Para testar o LED integrado da DOIT ESP32 DEVKIT V1, abra [Teste_LED_Interno.ino](Teste_LED_Interno/Teste_LED_Interno.ino). Esse teste pisca o LED ligado ao GPIO 2 a cada 500 ms. Carregar o teste substitui temporariamente o firmware do microfone na placa; para voltar a captar áudio, carregue novamente o sketch de aquisição I²S.
 
 Para testar a biblioteca `ESP32Feature28` instalada pela equipe, abra [Teste_ESP32Feature28_INMP441.ino](Teste_ESP32Feature28_INMP441/Teste_ESP32Feature28_INMP441.ino). Esse teste separado usa a ligação informada em 22/10/2026: **SCK→GPIO 18, WS→GPIO 23, SD→GPIO 5, L/R→GND**. Ele lê o INMP441 em 32 bits, entrega 16 bits úteis à biblioteca e mostra diagnósticos e 28 recursos no Serial. Requer `ESP32Feature28` 1.0.0 e `arduinoFFT` 2.x, instaladas no sketchbook Arduino. A compilação não substitui o teste do áudio real.
 
+**Ligação atual confirmada pela equipe: 26/25/33.** O teste `ESP32Feature28` acima conserva a pinagem anterior de 18/23/5; se for carregado com os fios atuais, seus `#define` precisam ser atualizados. Para investigar os zeros primeiro, use o diagnóstico 26/25/33 indicado acima.
+
 **Compilação do teste ESP32Feature28 em 22/10/2026:** concluída sem erros nem avisos com Arduino-ESP32 3.3.12 e placa `esp32:esp32:esp32`. Programa: **307.812 bytes (23%)**; variáveis globais: **111.956 bytes (34%)**. Ainda não há validação no microfone físico.
 
-**Atenção:** o sketch V0.1 abaixo ainda usa **SCK→26, WS→25, SD→33**. Para carregar um sketch ou outro, os fios e os `#define` precisam corresponder. O GPIO 5 é um pino de configuração de partida do ESP32; se houver dificuldade no boot ou upload com SD nesse pino, desligue a placa e prefira mover SD para GPIO 33, alterando também `#define I2S_SD` no teste.
+**Atenção:** o sketch V0.1 e o diagnóstico usam **SCK→26, WS→25, SD→33**, correspondentes à ligação atual. Para carregar o teste `ESP32Feature28`, os fios e os `#define` precisam corresponder. O GPIO 5 usado anteriormente é um pino de configuração de partida do ESP32.
 
 - Arduino IDE 2.
 - Pacote **esp32 by Espressif Systems 3.3.12**.
