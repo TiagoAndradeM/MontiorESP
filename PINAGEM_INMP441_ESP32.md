@@ -15,6 +15,12 @@ Este documento explica as seis conexões do **módulo de microfone INMP441** usa
 
 Use os números **GPIO** impressos na placa. A posição física desses contatos pode variar entre versões da DEVKIT V1 e do módulo; confira as inscrições na sua placa antes de ligar. Faça ou altere as conexões com o USB desconectado.
 
+### Cuidado com o “SCK/CLK — No. 20” do datasheet do ESP32-WROOM-32
+
+Na tabela de pinos do [datasheet oficial do ESP32-WROOM-32, páginas 9–10](https://documentation.espressif.com/esp32-wroom-32_datasheet_en.pdf), a coluna **No.** numera os contatos físicos **do módulo WROOM-32**, não os GPIOs nem os contatos laterais da placa DEVKIT V1. A linha `SCK/CLK — No. 20` corresponde ao **GPIO 6**, usado para o relógio da memória flash integrada. O fabricante informa que os GPIOs 6 a 11 estão ligados à flash e não são recomendados para outras funções. **Não ligue o SCK do INMP441 nesse contato.**
+
+No mesmo datasheet, `IO26 — No. 11` significa **GPIO 26**, `IO25 — No. 10` significa **GPIO 25** e `IO33 — No. 9` significa **GPIO 33**. Na DEVKIT V1, use os contatos laterais identificados como **D26/26**, **D25/25** e **D33/33**. O nome `SCK` aparece em interfaces diferentes; o relógio I²S do nosso microfone foi configurado no **GPIO 26** pelo sketch.
+
 ## Por que 26, 25 e 33?
 
 O ESP32 consegue encaminhar sinais I²S por diferentes GPIOs; **26, 25 e 33 não são os únicos pinos possíveis**. Foram escolhidos porque estão disponíveis nesta montagem e podem cumprir as direções necessárias: GPIO 26 e GPIO 25 fornecem os dois sinais de relógio, enquanto GPIO 33 recebe os dados. O que torna a ligação correta é a combinação de **fios físicos** com a **configuração do programa**. A [documentação de GPIO da Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/gpio.html) lista esses pinos como GPIOs utilizáveis e explica o encaminhamento de sinais pelo ESP32.
