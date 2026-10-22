@@ -26,6 +26,8 @@ Fontes: [cabeçalho da versão 3.3.12](https://github.com/espressif/arduino-esp3
 
 Faça ou revise as conexões com o USB desconectado.
 
+Para entender a função de cada pino e por que esta montagem usa os GPIOs 26, 25 e 33, leia [Ligações do INMP441 ao ESP32 DEVKIT V1](PINAGEM_INMP441_ESP32.md).
+
 | INMP441 | ESP32 |
 |---|---|
 | VDD | 3V3 |
