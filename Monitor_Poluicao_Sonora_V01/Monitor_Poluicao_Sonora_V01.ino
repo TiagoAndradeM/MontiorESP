@@ -11,14 +11,14 @@
 #include <ESP_I2S.h>
 
 // O ESP32 fornece BCLK e WS; o microfone fornece os dados em SD.
-constexpr int8_t PINO_BCLK = 26;
-constexpr int8_t PINO_WS = 25;
-constexpr int8_t PINO_SD = 33;
+#define I2S_SCK 26
+#define I2S_WS  25
+#define I2S_SD  33
 
-constexpr uint32_t TAXA_AMOSTRAGEM_HZ = 16000;
-constexpr size_t AMOSTRAS_POR_BLOCO = 256;
-constexpr uint32_t INTERVALO_DIAGNOSTICO_MS = 500;
-constexpr uint32_t TIMEOUT_LEITURA_MS = 100;
+#define TAXA_AMOSTRAGEM_HZ 16000U
+#define AMOSTRAS_POR_BLOCO 256U
+#define INTERVALO_DIAGNOSTICO_MS 500U
+#define TIMEOUT_LEITURA_MS 100U
 
 I2SClass microfone;
 int32_t bufferAmostras[AMOSTRAS_POR_BLOCO];
@@ -47,7 +47,7 @@ void inicializarSerial() {
 bool inicializarI2S() {
   // Ordem: BCLK, WS, DATA OUT, DATA IN, MCLK.
   // -1 desabilita a saida de audio e o pino MCLK, que nao sao usados.
-  microfone.setPins(PINO_BCLK, PINO_WS, -1, PINO_SD, -1);
+  microfone.setPins(I2S_SCK, I2S_WS, -1, I2S_SD, -1);
   microfone.setTimeout(TIMEOUT_LEITURA_MS);
 
   // STD usa I2S Philips. L/R em GND seleciona o slot esquerdo.
