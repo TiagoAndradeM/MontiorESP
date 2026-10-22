@@ -12,6 +12,12 @@ Abra [Monitor_Poluicao_Sonora_V01.ino](Monitor_Poluicao_Sonora_V01/Monitor_Polui
 
 Para testar o LED integrado da DOIT ESP32 DEVKIT V1, abra [Teste_LED_Interno.ino](Teste_LED_Interno/Teste_LED_Interno.ino). Esse teste pisca o LED ligado ao GPIO 2 a cada 500 ms. Carregar o teste substitui temporariamente o firmware do microfone na placa; para voltar a captar áudio, carregue novamente o sketch de aquisição I²S.
 
+Para testar a biblioteca `ESP32Feature28` instalada pela equipe, abra [Teste_ESP32Feature28_INMP441.ino](Teste_ESP32Feature28_INMP441/Teste_ESP32Feature28_INMP441.ino). Esse teste separado usa a ligação informada em 22/10/2026: **SCK→GPIO 18, WS→GPIO 23, SD→GPIO 5, L/R→GND**. Ele lê o INMP441 em 32 bits, entrega 16 bits úteis à biblioteca e mostra diagnósticos e 28 recursos no Serial. Requer `ESP32Feature28` 1.0.0 e `arduinoFFT` 2.x, instaladas no sketchbook Arduino. A compilação não substitui o teste do áudio real.
+
+**Compilação do teste ESP32Feature28 em 22/10/2026:** concluída sem erros nem avisos com Arduino-ESP32 3.3.12 e placa `esp32:esp32:esp32`. Programa: **307.812 bytes (23%)**; variáveis globais: **111.956 bytes (34%)**. Ainda não há validação no microfone físico.
+
+**Atenção:** o sketch V0.1 abaixo ainda usa **SCK→26, WS→25, SD→33**. Para carregar um sketch ou outro, os fios e os `#define` precisam corresponder. O GPIO 5 é um pino de configuração de partida do ESP32; se houver dificuldade no boot ou upload com SD nesse pino, desligue a placa e prefira mover SD para GPIO 33, alterando também `#define I2S_SD` no teste.
+
 - Arduino IDE 2.
 - Pacote **esp32 by Espressif Systems 3.3.12**.
 - Placa **ESP32 Dev Module**; hardware ESP32 DEVKIT V1 / ESP32-D0WD-V3.
@@ -28,7 +34,7 @@ Fontes: [cabeçalho da versão 3.3.12](https://github.com/espressif/arduino-esp3
 
 Faça ou revise as conexões com o USB desconectado.
 
-Para entender a função de cada pino e por que esta montagem usa os GPIOs 26, 25 e 33, leia [Ligações do INMP441 ao ESP32 DEVKIT V1](PINAGEM_INMP441_ESP32.md).
+Para entender a função de cada pino e por que o sketch V0.1 usa os GPIOs 26, 25 e 33, leia [Ligações do INMP441 ao ESP32 DEVKIT V1](PINAGEM_INMP441_ESP32.md). A tabela abaixo é específica da V0.1; para o teste com `ESP32Feature28`, veja a ligação informada acima.
 
 | INMP441 | ESP32 |
 |---|---|

@@ -2,6 +2,8 @@
 
 Este documento explica as seis conexões do **módulo de microfone INMP441** usadas no projeto MontiorESP. O próprio INMP441 contém o sensor de som e converte o áudio em dados digitais; não é preciso ligar outro microfone a ele. A comunicação com o ESP32 usa **I²S**: o ESP32 fornece os sinais de sincronização e recebe os dados do microfone. Consulte o [datasheet do INMP441, especialmente as páginas 8 e 11](https://product.tdk.cn/system/files/dam/doc/product/sw_piezo/mic/mems-mic/data_sheet/inmp441.pdf).
 
+**Esta tabela documenta o sketch V0.1.** Para o experimento posterior com a biblioteca `ESP32Feature28`, a equipe informou outra ligação: SCK→GPIO 18, WS→GPIO 23 e SD→GPIO 5, com L/R→GND. Use sempre os pinos definidos no sketch que for carregar na placa.
+
 ## Tabela de ligações
 
 | Pino no módulo INMP441 | Ligar no ESP32 DEVKIT V1 | Direção do sinal | O que faz |
@@ -19,7 +21,7 @@ Use os números **GPIO** impressos na placa. A posição física desses contatos
 
 Na tabela de pinos do [datasheet oficial do ESP32-WROOM-32, páginas 9–10](https://documentation.espressif.com/esp32-wroom-32_datasheet_en.pdf), a coluna **No.** numera os contatos físicos **do módulo WROOM-32**, não os GPIOs nem os contatos laterais da placa DEVKIT V1. A linha `SCK/CLK — No. 20` corresponde ao **GPIO 6**, usado para o relógio da memória flash integrada. O fabricante informa que os GPIOs 6 a 11 estão ligados à flash e não são recomendados para outras funções. **Não ligue o SCK do INMP441 nesse contato.**
 
-No mesmo datasheet, `IO26 — No. 11` significa **GPIO 26**, `IO25 — No. 10` significa **GPIO 25** e `IO33 — No. 9` significa **GPIO 33**. Na DEVKIT V1, use os contatos laterais identificados como **D26/26**, **D25/25** e **D33/33**. O nome `SCK` aparece em interfaces diferentes; o relógio I²S do nosso microfone foi configurado no **GPIO 26** pelo sketch.
+No mesmo datasheet, `IO26 — No. 11` significa **GPIO 26**, `IO25 — No. 10` significa **GPIO 25** e `IO33 — No. 9` significa **GPIO 33**. Para o sketch V0.1, use os contatos laterais da DEVKIT V1 identificados como **D26/26**, **D25/25** e **D33/33**. O nome `SCK` aparece em interfaces diferentes; o relógio I²S do microfone foi configurado no **GPIO 26** pela V0.1 e no **GPIO 18** pelo teste separado com `ESP32Feature28`.
 
 ## Por que 26, 25 e 33?
 
