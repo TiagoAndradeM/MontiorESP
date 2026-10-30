@@ -1,12 +1,14 @@
 # Planejamento — Monitor Inteligente de Poluição Sonora
 
-Entrega de 30/10/2026: ambiente, requisitos e arquitetura. Desenvolvimento do primeiro MVP previsto para 31/10/2026. Nenhuma aplicação nova, firmware, ML, banco ou infraestrutura foi implementado nesta etapa.
+Em 30/10/2026: planejamento concluído e, por pedido do usuário, desenvolvimento de T01 antecipado. O MVP simulado já funciona em `interface/`, com testes, commits estruturados e workflows GitHub preparados. Backend, hardware e publicação do site continuam em etapas próprias.
 
 ## Como começar uma nova sessão
 
 Ler [AGENTS.md](../AGENTS.md), [contexto](contexto.md), [requisitos](requisitos.md), [tarefas](tarefas.md) e [roadmap](roadmap.md). Depois abrir somente os documentos e skills da tarefa. Fonte da adaptação metodológica: [análise da referência](metodologia.md).
 
 Recomendação: mock no navegador primeiro; backend Python local na integração; HTML/CSS/JS sem framework. A alternativa de hospedar a tela no ESP32 foi comparada, mas não é a rota inicial recomendada. Os sketches, CSVs e dashboard serial anteriores continuam preservados.
+
+Para usar o que foi implementado, começar pelo [README da interface](../interface/README.md). Na raiz, `node scripts/verificar.mjs` executa as verificações. [Deploy e GitHub](deploy.md) explicam publicação manual e o CI.
 
 ## Estrutura e finalidade de cada arquivo novo
 
@@ -32,6 +34,29 @@ Recomendação: mock no navegador primeiro; backend Python local na integração
 | [ADR-003](decisoes/003-grandezas-e-regras.md) | Grandezas digitais, perfis e ausência de calibração |
 | [ADR-004](decisoes/004-stack-e-incrementos.md) | Stack simples e entregas pequenas |
 | [template.md](decisoes/template.md) | Modelo reutilizável de decisão técnica |
+| [deploy.md](deploy.md) | Versionamento, CI, publicação estática e evolução do backend |
+| [ADR-005](decisoes/005-deploy-e-versionamento.md) | Branch por incremento e deploy manual do mock |
+
+## Arquivos implementados em T01
+
+| Arquivo | Finalidade |
+|---|---|
+| [interface/README.md](../interface/README.md) | Execução, organização e limitações do MVP |
+| [interface/index.html](../interface/index.html) | Tela acessível em português, com origem e controles |
+| [interface/styles.css](../interface/styles.css) | Tema Falcons e layouts desktop/mobile |
+| [interface/favicon.svg](../interface/favicon.svg) | Identidade visual local, sem asset externo |
+| [interface/js/app.js](../interface/js/app.js) | Ligação entre controles, fonte e apresentação |
+| [interface/js/validacao.js](../interface/js/validacao.js) | Validação estrutural e semântica da telemetria |
+| [interface/js/estado.js](../interface/js/estado.js) | Sessões, ordem, frescor, histórico e fronteira de fonte |
+| [interface/js/fontes/mock.js](../interface/js/fontes/mock.js) | Roteiros sintéticos determinísticos a 1 Hz |
+| [interface/js/componentes.js](../interface/js/componentes.js) | Renderização e gráfico SVG com lacunas |
+| [interface/contratos/telemetria.schema.json](../interface/contratos/telemetria.schema.json) | Cópia de distribuição conferida contra o contrato canônico |
+| [package.json](../package.json) | Comandos de desenvolvimento sem dependências npm |
+| [tests/telemetria.test.mjs](../tests/telemetria.test.mjs) | Contrato, cenários, frescor, contexto e troca de fonte |
+| [tests/grafico.test.mjs](../tests/grafico.test.mjs) | Lacunas e escala do gráfico |
+| [scripts/verificar.mjs](../scripts/verificar.mjs) | Verificação única reproduzível local e no CI |
+| [.github/workflows/ci.yml](../.github/workflows/ci.yml) | Validação automática de push/PR |
+| [.github/workflows/deploy-pages.yml](../.github/workflows/deploy-pages.yml) | Publicação manual da main, somente interface/ |
 
 ## Papéis
 
@@ -70,6 +95,6 @@ S0.1 planejamento → S0.2 mock → S0.3 HTTP local → S0.4 serial opcional →
 
 Pendências: referências e perfis reais, limiares por ambiente, canal/versão da bancada, compatibilidade V03/core, rede, autonomia sem host e definição espectral. Elas estão detalhadas em [contexto](contexto.md#decisoes-abertas) e não bloqueiam o mock.
 
-Próxima tarefa: T01, conforme [prompt do MVP](../prompts/implementar-mvp.md), em uma sessão de desenvolvimento. Para evidência das verificações desta estrutura, consultar [QA](qa.md).
+Próxima tarefa recomendada: T02, backend local e fonte HTTP, conforme [prompt de integração](../prompts/integrar-fonte.md). Revisão/merge da branch e primeiro deploy são tarefas separadas. Para evidência das verificações, consultar [QA](qa.md).
 
 Arquivo existente alterado nesta entrega: [README principal](../README.md), somente para adicionar a entrada desta documentação. Demais mudanças anteriores do repositório não fazem parte deste planejamento.

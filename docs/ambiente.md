@@ -21,14 +21,14 @@ Inventário de ferramentas em 30/10/2026. Nenhum serviço ou ferramenta global f
 - Dependências do primeiro MVP limitadas a navegador e, para servir os arquivos, Python já instalado.
 - Separação definida entre aplicação nova planejada e dashboard serial existente.
 
-## Procedimento de amanhã
+## Executar o MVP implementado
 
 1. Ler `AGENTS.md`, contexto, tarefas e prompt do MVP. Conferir `git status --short`.
-2. Criar apenas `interface/` no incremento T01; módulos ES, HTML e CSS sem ferramentas de build.
-3. Depois de existir código nessa pasta, servir **a partir dela**: `python -m http.server 8000 --bind 127.0.0.1`. Abrir `http://127.0.0.1:8000/`. Não executar esse comando na raiz, para não expor documentos/dados desnecessários.
+2. A pasta `interface/` contém T01: módulos ES, HTML e CSS sem ferramentas de build ou dependências externas.
+3. Servir **a partir dela**: `python -m http.server 8000 --bind 127.0.0.1`. Abrir `http://127.0.0.1:8000/`. Não executar esse comando na raiz, para não expor documentos/dados desnecessários.
 4. Executar critérios de [QA](qa.md). Parar o servidor com Ctrl+C.
 
-`http.server` serve para desenvolvimento local; a documentação Python não o recomenda para produção ([fonte oficial](https://docs.python.org/3.13/library/http.server.html)). Nenhum servidor foi iniciado hoje.
+`http.server` serve para desenvolvimento local; a documentação Python não o recomenda para produção ([fonte oficial](https://docs.python.org/3.13/library/http.server.html)). Um servidor temporário em loopback foi usado para QA do MVP. Na raiz do projeto, executar `node scripts/verificar.mjs` para conferir o contrato e rodar os testes; não precisa de `npm install`. Node não é dependência de execução do frontend.
 
 Backend do MVP poderá começar com biblioteca padrão Python e bind em loopback. Virtualenv e dependências só serão criados se uma tarefa posterior justificar pacotes externos; registrar e fixar suas versões nessa ocasião. Não há `requirements.txt` vazio ou dependências especulativas nesta entrega.
 

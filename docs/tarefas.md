@@ -5,7 +5,7 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 | ID | Estado em 30/10 | Tarefa e papel | Depende de | Critério de conclusão |
 |---|---|---|---|---|
 | T00 | Concluída | Planejamento e estrutura — arquitetura | Analisar referência antes de criar | Inventário, requisitos, comparação A/B, contrato e plano registrados; sem aplicação nova |
-| T01 | Pronta para amanhã | MVP com mock — interface | T00, prompt de implementação | RF01–RF09 e QA01–QA10 executados; evidências e limitações registradas |
+| T01 | Concluída em 30/10, antecipada pelo usuário | MVP com mock — interface | T00, prompt de implementação | RF01–RF09 cobertos; 15 testes aprovados e QA visual/teclado, com limitações registradas |
 | T02 | Planejada | Backend mínimo + fonte HTTP — integração | T01 | Endpoints de arquitetura, validação, ausência e polling funcionam; mesma renderização |
 | T03 | Bloqueada por evidência | Confirmar bancada e perfis — integração/qualidade | P01/P02/P03/P08 | Identificação de sketch/core/canal, procedimento e evidência reais registrados |
 | T04 | Planejada | Adaptador serial compatível — integração | T02, T03 para uso físico | Metadados corretos, unidades, sessão e ausência preservados |
@@ -16,7 +16,7 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 
 ## Próxima tarefa recomendada
 
-Em 31/10/2026, iniciar T01 usando [prompt do MVP](../prompts/implementar-mvp.md): contrato e validação → fonte simulada → estado → tela → verificação. Entregar somente o MVP simulado; não acumular T02–T08 no mesmo pedido por iniciativa própria.
+T01 foi antecipada pelo usuário e entregue nesta sessão. Próximo incremento recomendado: T02, backend local com mock e fonte HTTP, usando [prompt de integração](../prompts/integrar-fonte.md). Separadamente, revisar/integrar a branch e executar o [deploy manual](deploy.md) quando solicitado. Não acumular integração física, armazenamento e ML.
 
 ## Evidência da entrega T00
 
@@ -28,3 +28,9 @@ Em 31/10/2026, iniciar T01 usando [prompt do MVP](../prompts/implementar-mvp.md)
 ## Fechamento das próximas sessões
 
 Registrar aqui a tarefa, status real, arquivos tocados, evidência, pendência e próximo passo. Atualizar contexto e ADRs se decisões mudarem. Não marcar uma etapa concluída apenas porque seu documento existe.
+
+## Evidência de T01
+
+30/10/2026: `interface/`, `tests/`, `scripts/verificar.mjs`, `package.json` e workflows adicionados. Fonte mock e estado separados da renderização; contrato de distribuição conferido contra o canônico. Ambiente/cenário reiniciam sessão. Layout verificado em 360 e 1280 px; ausência, rejeição de JSON, pausa/desconexão e retorno observados. Histórico de 15 min e substituição de fonte verificados com relógio/fonte de teste, não com hardware. [QA detalhado](qa.md).
+
+Commits separados em branch própria. README preparado com staging seletivo para preservar alterações anteriores. Publicação Pages preparada, não executada; firmware, dashboard serial e dados históricos não foram incorporados aos commits do MVP.

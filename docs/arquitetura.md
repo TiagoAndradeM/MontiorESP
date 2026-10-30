@@ -1,6 +1,6 @@
 # Arquitetura proposta
 
-Status: decisão de planejamento em 30/10/2026, sem implementação nesta entrega. [ADR-001](decisoes/001-arquitetura.md).
+Status: decisão de planejamento em 30/10/2026. T01 já implementa o caminho de mock; backend e integração física continuam planejados. [ADR-001](decisoes/001-arquitetura.md).
 
 ## Comparação das alternativas
 
@@ -73,7 +73,9 @@ Esses endpoints estão **planejados**, não existem hoje. O dashboard anterior u
 
 ## Organização futura do código
 
-Somente ao iniciar desenvolvimento: `interface/index.html`, `interface/styles.css`, `interface/js/app.js`, `interface/js/fontes/mock.js`, `interface/js/validacao.js`, `interface/js/estado.js`, `interface/js/componentes.js`. Fonte HTTP e `backend/` surgem nas tarefas correspondentes. São responsabilidades lógicas; evitar multiplicar arquivos para funções triviais.
+Implementados em T01: `interface/index.html`, `interface/styles.css`, `interface/js/app.js`, `interface/js/fontes/mock.js`, `interface/js/validacao.js`, `interface/js/estado.js`, `interface/js/componentes.js`. Fonte HTTP e `backend/` surgem nas tarefas correspondentes. O contrato canônico permanece em `docs/contratos`; uma cópia de distribuição em `interface/contratos` permite servir/publicar somente a interface. O CI garante igualdade estrutural das duas cópias e bloqueia palavras-chave não suportadas pelo validador local. Nenhuma etapa de build/instalação é necessária para executar os arquivos já versionados.
+
+Testes ficam em `tests/`, com Node nativo apenas no desenvolvimento. Estratégia de [deploy](deploy.md) e [ADR-005](decisoes/005-deploy-e-versionamento.md): Pages para o mock estático, Python local para integração futura.
 
 ## Expansão para ML
 

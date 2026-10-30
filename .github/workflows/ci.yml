@@ -1,0 +1,23 @@
+name: Validar MVP
+
+on:
+  push:
+    paths: ['interface/**', 'tests/**', 'scripts/**', 'docs/contratos/**', 'package.json', '.github/workflows/**']
+  pull_request:
+    paths: ['interface/**', 'tests/**', 'scripts/**', 'docs/contratos/**', 'package.json', '.github/workflows/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Conferir contrato, arquivos e comportamento
+        run: node scripts/verificar.mjs

@@ -4,7 +4,7 @@
 
 Conferir existência dos arquivos referenciados, leitura dos JSONs, coerência de nomes/tipos/unidades, validação estrutural de schema/exemplos e metadados das skills. Revisar requisitos contra roadmap e tarefas. Preservar byte a byte os arquivos anteriores, exceto a entrada deliberadamente acrescentada ao README. Não compilar, iniciar serviços ou operar hardware para validar documentação.
 
-## Plano para T01 — ainda não executado
+## Cenários de aceite de T01
 
 | ID | Ação | Resultado esperado | Requisito |
 |---|---|---|---|
@@ -43,4 +43,23 @@ Verificação local em 30/10/2026:
 - 25 arquivos anteriores, excluindo README, conferidos por SHA-256 e preservados. O README recebeu somente o bloco de entrada do planejamento; conteúdo anterior preservado. A lista exclui metadados `.git` e saídas de compilação.
 - `git diff --check` sem erro de espaços. Alterações preexistentes continuam no repositório e não foram incluídas em commit.
 
-Procedimento pontual: [ferramentas temporárias](ambiente.md#ferramentas-de-qa). Dependências isoladas fora do repositório; sem instalação global. A revisão semântica dos documentos não substitui os testes de consumidores futuros. Nenhum cenário de interface, servidor, compilação ou hardware desta tabela foi executado nesta sessão.
+Procedimento pontual de T00: [ferramentas temporárias](ambiente.md#ferramentas-de-qa). Dependências isoladas fora do repositório; sem instalação global. Na etapa T00 não houve execução de interface, servidor, compilação ou hardware. T01 foi autorizada e implementada depois, ainda em 30/10/2026, conforme registro abaixo.
+
+## Resultado de T01 — 30/10/2026
+
+Comando reproduzível: `node scripts/verificar.mjs`, a partir da raiz do projeto. Quinze testes aprovados, sem pacotes npm, mais verificação de sintaxe e igualdade do contrato de distribuição. Validação em Node 24.22.1 local; CI configurado para Node 24.
+
+| Cenário | Evidência obtida | Limitação |
+|---|---|---|
+| QA01/QA02 | HTTP 200 local, banner simulado, indicadores atualizando e cenários determinísticos; console sem erros/avisos no navegador | Sem hardware e sem uso de fontes externas; não foi desligada a conexão do sistema |
+| QA03 | Cenário indisponível no navegador: intensidade “—”, RMS/frequência “Indisponível”, estado indeterminado | Sem interpretação de dado real |
+| QA04 | Mensagem malformada no navegador produz erro de dados e nenhuma amostra; tipos/faixas/perfis/datas exercitados nos testes | Validador implementa o subconjunto usado no schema atual, bloqueado no CI se esse subconjunto mudar |
+| QA05 | Pausa por teclado produziu “Sem conexão” e estado indeterminado; retomada voltou a “Simulador conectado” | Limite exato de 3 s exercitado por relógio controlado; 10 s e retorno também observados na UI |
+| QA06 | Testes de duplicata, conflito, fora de ordem e relógio regressivo preservaram último dado e frescor | Testes lógicos; sem pacotes reais de rede |
+| QA07 | Troca de ambiente para oficina no navegador reiniciou a janela; testes cobrem fonte/sessão/modo/perfis | Configuração de backend real ainda não existe |
+| QA08 | 900 amostras com relógio controlado: no máximo 60 pontos; expiração após interrupção | 15 minutos simulados, não teste de 15 minutos em tempo real no navegador |
+| QA09 | Inspeção visual em 360 e 1280 px; sem transbordamento horizontal; sequência de teclado ambiente → cenário → pausa e Space para pausar/retomar | Sem auditoria completa com leitor de tela ou matriz de navegadores |
+| QA10 | Fonte alternativa de teste em modo replay conectada ao mesmo consumidor via `conectarFonte`; encerramento verificado | Fronteira exercitada por teste; interface HTTP/hardware não foi implementada |
+| Gráfico | Testes verificam quebra por ausência, qualidade inválida e intervalo sem dados, sem conectar lacunas | Não é validação de análise acústica |
+
+Nenhuma calibração, compilação, gravação da placa, captura sonora ou inferência ML foi executada. O GitHub Pages foi preparado por workflow manual; não houve publicação do site nesta entrega. O resultado remoto do CI deve ser conferido na branch após o push; não confundir validação local com execução no GitHub.

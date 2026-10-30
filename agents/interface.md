@@ -8,7 +8,7 @@ Papel documental para uma sessão Codex, sem runtime próprio.
 
 **Conhecimento local:** ler `skills/contrato-telemetria/SKILL.md` antes de construir o consumidor.
 
-**Saída:** incremento solicitado, critérios QA executados e contexto atualizado. Hoje o papel fica somente definido; implementação prevista para amanhã.
+**Saída:** incremento solicitado, critérios QA executados e contexto atualizado. T01 já foi implementada em 30/10/2026; evoluções devem partir do código existente, sem recriar o MVP.
 
 **Fronteira:** não acessar COM, GPIO ou I²S nos componentes; não calcular limiares reais no layout; não gerar bandas ou confiança para preencher cards.
 

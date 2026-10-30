@@ -1,6 +1,6 @@
 # Contexto e estado atual
 
-Atualizado em 30/10/2026, America/Sao_Paulo. Etapa: planejamento de software ao redor do firmware. Hoje: ambiente, requisitos e arquitetura. Amanhã, 31/10: primeiro incremento de desenvolvimento, conforme tarefa solicitada na sessão.
+Atualizado em 30/10/2026, America/Sao_Paulo. Planejamento concluído e T01 antecipada por pedido explícito do usuário: MVP simulado implementado, com Git/GitHub e commits estruturados. A data anterior de 31/10 era uma previsão, substituída pela autorização de desenvolver nesta sessão.
 
 ## Objetivo e limites
 
@@ -14,7 +14,10 @@ Monitor de baixo custo para ambientes acadêmicos: biblioteca, sala de aula e of
 | V03 | 16 kHz, blocos de 512, relatório a cada 4096 amostras, RMS/pico dBFS, filtro e histerese | Não calcula FFT ou identificação de ambiente; nenhuma recompilação ou prova física nesta sessão |
 | Dashboard | `Dashboard_Tempo_Real/app.py`, `index.html`, README | Ponte serial Python, `/api/state`, CSV e replay já existem; ainda não seguem o novo contrato |
 | Histórico | Arquivos CSV em `dados/` | Dados preexistentes; não reinterpretados como novas medições nem usados para inventar perfis |
-| Git | Repositório em `MontiorESP/.git`, com alterações e arquivos não rastreados anteriores | Não descartar, incluir em commit ou reorganizar automaticamente |
+| Git | Branch `feat/mvp-interface-simulada` a partir de `43343e1`; commits do planejamento/MVP separados | Alterações anteriores de firmware, dashboard, CSVs e vídeo continuam fora dos commits |
+| Novo MVP | `interface/`, módulos JS nativos, mock 1 Hz, histórico 60 s, tratamento de falhas e dados ausentes | Somente simulado; não recebe serial/Wi-Fi nem executa ML |
+| Validação | 15 testes nativos Node, incluindo 15 min de relógio simulado; QA no navegador | Teste lógico/visual não comprova aquisição física |
+| Deploy | CI automático e publicação manual da main preparados para GitHub Pages | Site ainda não publicado; precisa integrar branch e habilitar Pages |
 
 O README descreve V02 como validada em bancada e V03 como proposta de estabilização ainda dependente de teste. Essas são declarações da documentação anterior, não validações feitas hoje.
 
@@ -49,3 +52,5 @@ O README descreve V02 como validada em bancada e V03 como proposta de estabiliza
 ## Retomada
 
 Ler [tarefas](tarefas.md). Não transformar pendências em fatos. Ao encerrar nova sessão, registrar entrega, arquivos tocados, verificações, limitações e próxima tarefa. Não copiar dados pessoais ou credenciais para documentos.
+
+Para executar o MVP: entrar em `interface/`, rodar `python -m http.server 8000 --bind 127.0.0.1` e abrir `http://127.0.0.1:8000/`. Para validar: na raiz do projeto, `node scripts/verificar.mjs`. Próximo incremento recomendado: T02, backend local com mock e fonte HTTP. O plano de [deploy](deploy.md) pode ser executado como tarefa separada depois de revisar/integrar a branch.

@@ -1,6 +1,6 @@
 # Contrato de telemetria 0.1.0
 
-Status: primeira proposta documentada para o MVP; nenhum produtor atual foi migrado. [Schema JSON](contratos/telemetria.schema.json), [exemplo sintético](contratos/exemplo-simulado.json), [exemplo indisponível](contratos/exemplo-indisponivel.json). Os exemplos não representam medições reais.
+Status: versão 0.1.0 implementada pela fonte mock do MVP; produtores físicos e dashboard anterior não foram migrados. [Schema JSON](contratos/telemetria.schema.json), [exemplo sintético](contratos/exemplo-simulado.json), [exemplo indisponível](contratos/exemplo-indisponivel.json). Os exemplos não representam medições reais.
 
 ## Princípios
 

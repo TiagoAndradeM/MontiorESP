@@ -1,6 +1,6 @@
 # MVP da interface
 
-Especificação para desenvolvimento a partir de 31/10/2026. Nenhum HTML/CSS/JS novo foi criado nesta etapa.
+Especificação de T01, implementada antecipadamente em 30/10/2026 por pedido explícito do usuário. Código em `interface/`; execução em `interface/README.md`. Esta tela usa apenas dados simulados.
 
 ## Uma tela, ordem de leitura
 

@@ -2,9 +2,11 @@
 
 Monitor Inteligente de Poluição Sonora — projeto acadêmico de Sinais e Sistemas com ESP32 e INMP441.
 
-## Planejamento da interface e arquitetura — 30/10/2026
+## MVP da interface com dados simulados
 
-O foco de hoje é **ambiente, requisitos e arquitetura**. O primeiro incremento de desenvolvimento está previsto para **31/10/2026**, com interface desacoplada e dados explicitamente simulados. Comece pelo [índice de planejamento](docs/README.md), pelo [contexto atual](docs/contexto.md) e pelas [instruções para futuras sessões](AGENTS.md). A documentação nova preserva os protótipos descritos abaixo; ela não significa que o novo MVP já foi implementado.
+O MVP está em [interface/](interface/README.md): seleção de ambiente, intensidade relativa, estados de demonstração, histórico de 60 segundos e cenários de falha. Funciona sem ESP32 e sem dependências externas. Na pasta `interface`, execute `python -m http.server 8000 --bind 127.0.0.1` e abra `http://127.0.0.1:8000/`. Na raiz do projeto, `node scripts/verificar.mjs` verifica o contrato e executa os testes.
+
+Veja o [índice de planejamento e implementação](docs/README.md), o [contexto atual](docs/contexto.md), as [instruções de continuidade](AGENTS.md) e a [estratégia de GitHub/deploy](docs/deploy.md). O MVP é simulado; firmware e dashboard serial anteriores continuam separados.
 
 **V0.1 — Aquisição I2S**
 

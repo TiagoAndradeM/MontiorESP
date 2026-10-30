@@ -31,6 +31,6 @@ Versão de planejamento 0.1, 30/10/2026. Prioridades: P0 essencial para o MVP si
 
 ## Escopo de hoje e exclusões
 
-Hoje são entregues documentação, ambiente inventariado, comparação de arquiteturas, contrato e preparação de tarefas. Não são entregues interface nova, mock executável, backend novo, testes de hardware, firmware, ML, banco, nuvem ou deploy.
+T00 entregou documentação, ambiente inventariado, comparação de arquiteturas, contrato e preparação de tarefas. Após essa entrega, o usuário antecipou T01: interface e mock executáveis, testes e integração Git/GitHub. Backend novo, testes de hardware, firmware, ML, banco e publicação do site permanecem fora desta implementação. O plano/workflow de deploy estático foi acrescentado por solicitação do usuário.
 
 O dashboard serial existente continua sendo um protótipo anterior. A existência dele não torna RF01–RF13 concluídos. Plano de verificação: [QA](qa.md). Dependências e sequência: [tarefas](tarefas.md).
