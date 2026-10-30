@@ -2,6 +2,10 @@
 
 Monitor Inteligente de Poluição Sonora — projeto acadêmico de Sinais e Sistemas com ESP32 e INMP441.
 
+## Planejamento da interface e arquitetura — 30/10/2026
+
+O foco de hoje é **ambiente, requisitos e arquitetura**. O primeiro incremento de desenvolvimento está previsto para **31/10/2026**, com interface desacoplada e dados explicitamente simulados. Comece pelo [índice de planejamento](docs/README.md), pelo [contexto atual](docs/contexto.md) e pelas [instruções para futuras sessões](AGENTS.md). A documentação nova preserva os protótipos descritos abaixo; ela não significa que o novo MVP já foi implementado.
+
 **V0.1 — Aquisição I2S**
 
 Esta versão valida exclusivamente o caminho `Som → INMP441 → I²S → ESP32 → amostras digitais`. O firmware recebe blocos continuamente e apresenta diagnósticos numéricos pelo Serial. A próxima etapa depende da validação no hardware real e de uma nova definição do projeto.
