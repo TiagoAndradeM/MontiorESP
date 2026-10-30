@@ -1,5 +1,5 @@
 export const CENARIOS = {
-  transicao: 'Ciclo de ambientes', baixo: 'Estado baixo', moderado: 'Estado moderado',
+  transicao: 'Ciclo de estados', baixo: 'Estado baixo', moderado: 'Estado moderado',
   elevado: 'Estado elevado', ausente: 'Métricas indisponíveis',
   qualidade: 'Janela inválida', malformado: 'Mensagem malformada',
   duplicata: 'Amostra duplicada', fora_ordem: 'Amostra fora de ordem',
