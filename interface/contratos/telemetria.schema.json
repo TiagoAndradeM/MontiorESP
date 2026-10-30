@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Telemetria do Monitor Inteligente de Poluicao Sonora",
+  "description": "Proposta 0.1.0. Nao garante semantica acustica; consultar contrato-dados.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "versao_contrato", "fonte_id", "sessao_id", "sequencia", "modo", "timestamp",
+    "tempo_ativo_ms", "ambiente", "estado", "perfil_regra_id",
+    "intensidade_relativa", "perfil_intensidade_id", "rms_normalizado",
+    "perfil_aquisicao_id", "janela_ms", "fs_hz", "qualidade"
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "idOuNull": {"anyOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+    "percentual": {"type": "number", "minimum": 0, "maximum": 100},
+    "ambiente": {"enum": ["biblioteca", "sala_aula", "oficina", "nao_definido"]}
+  },
+  "properties": {
+    "versao_contrato": {"const": "0.1.0"},
+    "fonte_id": {"$ref": "#/$defs/id"},
+    "sessao_id": {"$ref": "#/$defs/id"},
+    "sequencia": {"type": "integer", "minimum": 0},
+    "modo": {"enum": ["simulado", "real", "replay"]},
+    "timestamp": {
+      "anyOf": [
+        {"type": "string", "format": "date-time", "pattern": "Z$"},
+        {"type": "null"}
+      ]
+    },
+    "tempo_ativo_ms": {"type": "integer", "minimum": 0},
+    "ambiente": {"$ref": "#/$defs/ambiente"},
+    "estado": {"enum": ["baixo", "moderado", "elevado", "indeterminado"]},
+    "perfil_regra_id": {"$ref": "#/$defs/idOuNull"},
+    "intensidade_relativa": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+    "perfil_intensidade_id": {"$ref": "#/$defs/idOuNull"},
+    "rms_normalizado": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "perfil_aquisicao_id": {"$ref": "#/$defs/idOuNull"},
+    "janela_ms": {"type": "integer", "minimum": 1},
+    "fs_hz": {"type": "integer", "minimum": 1},
+    "qualidade": {"enum": ["valida", "degradada", "invalida"]},
+    "rms_dbfs": {"type": ["number", "null"], "maximum": 0},
+    "frequencia_dominante_hz": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "saturado": {"type": ["boolean", "null"]},
+    "bandas": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["perfil_id", "graves_pct", "medios_pct", "agudos_pct"],
+          "properties": {
+            "perfil_id": {"$ref": "#/$defs/id"},
+            "graves_pct": {"$ref": "#/$defs/percentual"},
+            "medios_pct": {"$ref": "#/$defs/percentual"},
+            "agudos_pct": {"$ref": "#/$defs/percentual"}
+          }
+        }
+      ]
+    },
+    "classificacao": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["ambiente", "confianca", "modelo_id"],
+          "properties": {
+            "ambiente": {"enum": ["biblioteca", "sala_aula", "oficina"]},
+            "confianca": {"type": "number", "minimum": 0, "maximum": 1},
+            "modelo_id": {"$ref": "#/$defs/id"}
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"perfil_intensidade_id": {"type": "null"}}},
+      "then": {"properties": {"intensidade_relativa": {"type": "null"}}}
+    },
+    {
+      "if": {"properties": {"perfil_regra_id": {"type": "null"}}},
+      "then": {"properties": {"estado": {"const": "indeterminado"}}}
+    },
+    {
+      "if": {"properties": {"estado": {"enum": ["baixo", "moderado", "elevado"]}}},
+      "then": {"properties": {"intensidade_relativa": {"type": "number"}}}
+    },
+    {
+      "if": {"properties": {"qualidade": {"enum": ["degradada", "invalida"]}}},
+      "then": {"properties": {"estado": {"const": "indeterminado"}}}
+    },
+    {
+      "if": {"properties": {"perfil_aquisicao_id": {"type": "null"}}},
+      "then": {"properties": {
+        "rms_normalizado": {"type": "null"}, "rms_dbfs": {"type": "null"},
+        "frequencia_dominante_hz": {"type": "null"}, "bandas": {"type": "null"}
+      }}
+    },
+    {
+      "if": {"properties": {"qualidade": {"const": "invalida"}}},
+      "then": {"properties": {
+        "intensidade_relativa": {"type": "null"}, "rms_normalizado": {"type": "null"},
+        "rms_dbfs": {"type": "null"}, "frequencia_dominante_hz": {"type": "null"},
+        "bandas": {"type": "null"}, "classificacao": {"type": "null"}
+      }}
+    }
+  ]
+}
