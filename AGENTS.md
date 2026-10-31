@@ -11,6 +11,7 @@ Construir um monitor acadêmico de baixo custo para biblioteca, sala de aula e o
 - Ler primeiro [estado atual](docs/contexto.md), [requisitos](docs/requisitos.md), [roadmap](docs/roadmap.md) e [tarefas](docs/tarefas.md).
 - Ler [arquitetura](docs/arquitetura.md), [contrato](docs/contrato-dados.md) e ADRs relacionados antes de alterar integrações.
 - Em 30/10/2026, o planejamento foi concluído e o usuário autorizou antecipar T01: implementar o MVP simulado e integrar Git/GitHub com commits estruturados. A data prevista anteriormente para desenvolvimento não é um bloqueio.
+- Em 31/10/2026, o usuário aprovou a revisão MONITOR SONORO no Figma e autorizou aplicá-la ao código original com commits estruturados. T01A foi implementada e validada em `interface/`; a pausa para revisão do design foi encerrada. T02, merge na main, deploy e firmware continuam dependendo de tarefa própria.
 - Já existem firmware, dashboard serial e CSVs. Não tratar o repositório como vazio, nem apresentar o novo planejamento como software implementado.
 
 ## Constraints

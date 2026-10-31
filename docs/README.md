@@ -10,6 +10,8 @@ Recomendação: mock no navegador primeiro; backend Python local na integração
 
 Para usar o que foi implementado, começar pelo [README da interface](../interface/README.md). Na raiz, `node scripts/verificar.mjs` executa as verificações. [Deploy e GitHub](deploy.md) explicam publicação manual e o CI.
 
+**Etapa atual:** em 31/10/2026, o usuário aprovou o [protótipo MONITOR SONORO](prototipo-figma.md). T01A está implementada em `interface/`, com três temas, botões de ambiente e controles secundários. [QA](qa.md#resultado-de-t01a--31102026) registra a validação local. Backend, merge e deploy continuam em tarefas próprias.
+
 ## Estrutura e finalidade de cada arquivo novo
 
 | Arquivo | Finalidade |
@@ -22,6 +24,8 @@ Para usar o que foi implementado, começar pelo [README da interface](../interfa
 | [requisitos.md](requisitos.md) | Requisitos funcionais/não funcionais com prioridade e aceite |
 | [arquitetura.md](arquitetura.md) | Comparação A/B, recomendação, fronteiras e HTTP futuro |
 | [interface.md](interface.md) | Hierarquia visual, componentes, estados e roteiro de mock |
+| [prototipo-figma.md](prototipo-figma.md) | Histórico do protótipo, frames aprovados e adaptação ao código |
+| [ADR-006](decisoes/006-interface-por-ambiente.md) | Temas por ambiente, seleção acessível e controles secundários |
 | [contrato-dados.md](contrato-dados.md) | Campos, tipos, unidades, origem, obrigatoriedade e regras semânticas |
 | [telemetria.schema.json](contratos/telemetria.schema.json) | Especificação estrutural JSON Schema 2020-12, proposta 0.1.0 |
 | [exemplo-simulado.json](contratos/exemplo-simulado.json) | Exemplo sintético com perfis de demonstração; sem medição real |
@@ -43,7 +47,7 @@ Para usar o que foi implementado, começar pelo [README da interface](../interfa
 |---|---|
 | [interface/README.md](../interface/README.md) | Execução, organização e limitações do MVP |
 | [interface/index.html](../interface/index.html) | Tela acessível em português, com origem e controles |
-| [interface/styles.css](../interface/styles.css) | Tema Falcons e layouts desktop/mobile |
+| [interface/styles.css](../interface/styles.css) | Visual MONITOR SONORO, temas por ambiente e layouts desktop/mobile |
 | [interface/favicon.svg](../interface/favicon.svg) | Identidade visual local, sem asset externo |
 | [interface/js/app.js](../interface/js/app.js) | Ligação entre controles, fonte e apresentação |
 | [interface/js/validacao.js](../interface/js/validacao.js) | Validação estrutural e semântica da telemetria |

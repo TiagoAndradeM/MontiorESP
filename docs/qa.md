@@ -63,3 +63,16 @@ Comando reproduzível: `node scripts/verificar.mjs`, a partir da raiz do projeto
 | Gráfico | Testes verificam quebra por ausência, qualidade inválida e intervalo sem dados, sem conectar lacunas | Não é validação de análise acústica |
 
 Nenhuma calibração, compilação, gravação da placa, captura sonora ou inferência ML foi executada. O GitHub Pages foi preparado por workflow manual; não houve publicação do site nesta entrega. O resultado remoto do CI deve ser conferido na branch após o push; não confundir validação local com execução no GitHub.
+
+## Resultado de T01A — 31/10/2026
+
+Revisão visual aprovada aplicada ao código original. Commit de implementação `98de808` enviado à branch `feat/mvp-interface-simulada`. `node scripts/verificar.mjs` aprovou os 15 testes, sintaxe e contrato de distribuição. `git diff --check` passou.
+
+- Três botões nativos com uma seleção `aria-pressed` por vez. Troca de ambiente: histórico zero, intensidade “—”, aguardando primeira amostra e pausa desmarcada; depois, retorno do mock. Clique no mesmo ambiente preservou o histórico. Reiniciar e troca de cenário também limparam a sessão.
+- Cores efetivas do número, linha e stops SVG conferidas em verde/azul/laranja; tema aplicado antes da primeira amostra. Estado e origem continuam textuais. Controles ficam recolhidos no carregamento inicial.
+- Cenário ausente no navegador: intensidade “—”, estado indeterminado e RMS/frequência indisponíveis. Pausa produziu dados desatualizados após 3 s e sem conexão após 10 s; Retomar voltou a conectado. Trocar ambiente enquanto pausado iniciou nova sessão ativa.
+- Inspeção visual em 1280 e 360 px; Tab/Shift+Tab, Enter e Espaço selecionaram ambientes e exibiram foco visível. Sem transbordamento horizontal em 360, 768, 900, 1024 e 1280 px. No mobile estreito, o nome Laboratório/oficina pode quebrar em duas linhas, mantendo os três botões visíveis.
+- Console do navegador sem erros/avisos. SVGs e favicon locais preservam a identidade original em preto/branco; não há dependências externas nem imagens do Figma no lugar da interface.
+- Capturas locais em `../../output/qa/monitor-sonoro-*.png`, fora do repositório, não disponíveis automaticamente em outro clone. A extração MCP do Figma estava sem cota; comparação feita com capturas aprovadas e os componentes originais.
+
+Esta verificação cobre o navegador conectado à sessão e os testes lógicos do MVP. Não é auditoria completa com leitores de tela/múltiplos navegadores, nem teste de bancada. Firmware, README raiz, `.gitignore`, dashboard serial e dados preexistentes permanecem fora dos commits desta revisão.

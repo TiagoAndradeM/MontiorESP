@@ -1,6 +1,8 @@
 # Contexto e estado atual
 
-Atualizado em 30/10/2026, America/Sao_Paulo. Planejamento concluído e T01 antecipada por pedido explícito do usuário: MVP simulado implementado, com Git/GitHub e commits estruturados. A data anterior de 31/10 era uma previsão, substituída pela autorização de desenvolver nesta sessão.
+Atualizado em 31/10/2026, America/Sao_Paulo. Planejamento e T01 foram concluídos em 30/10, com MVP simulado, Git/GitHub e commits estruturados. Em 31/10, o usuário aprovou a revisão visual no Figma e autorizou aplicá-la ao código original com novos commits.
+
+Direção mais recente: revisão aprovada aplicada em `interface/`, preservando o mock e o contrato existentes. Arquivo: [MONITOR SONORO — Protótipo](https://www.figma.com/design/p2zKFdU84fims4MYEL7jRv). A página de revisão `13:2` tem três estados por formato (desktop e mobile); as bases originais `2:2` e `5:2` foram preservadas. A aplicação tem base preta/branca, três botões acessíveis e temas `#18844A`, `#2563EB` e `#EA580C`; controles da simulação recolhidos em `<details>` preservam RF09. T01A passou nos 15 testes e na conferência visual/teclado em 360 e 1280 px. Commit de implementação `98de808`, enviado à branch `feat/mvp-interface-simulada`. A fonte da aplicação permanece Segoe UI. Ver [protótipo Figma](prototipo-figma.md), [ADR-006](decisoes/006-interface-por-ambiente.md) e [QA](qa.md#resultado-de-t01a--31102026). Nenhum merge, deploy ou firmware foi executado.
 
 ## Objetivo e limites
 
@@ -16,6 +18,7 @@ Monitor de baixo custo para ambientes acadêmicos: biblioteca, sala de aula e of
 | Histórico | Arquivos CSV em `dados/` | Dados preexistentes; não reinterpretados como novas medições nem usados para inventar perfis |
 | Git | Branch `feat/mvp-interface-simulada` a partir de `43343e1`; commits do planejamento/MVP separados | Alterações anteriores de firmware, dashboard, CSVs e vídeo continuam fora dos commits |
 | Novo MVP | `interface/`, módulos JS nativos, mock 1 Hz, histórico 60 s, tratamento de falhas e dados ausentes | Somente simulado; não recebe serial/Wi-Fi nem executa ML |
+| Revisão visual aprovada | Figma `13:2` aplicado à interface; 15 testes e QA visual/teclado aprovados | Interface simulada; nenhum teste físico |
 | Validação | 15 testes nativos Node, incluindo 15 min de relógio simulado; QA no navegador | Teste lógico/visual não comprova aquisição física |
 | Deploy | CI automático e publicação manual da main preparados para GitHub Pages | Site ainda não publicado; precisa integrar branch e habilitar Pages |
 
@@ -34,6 +37,7 @@ O README descreve V02 como validada em bancada e V03 como proposta de estabiliza
 - Contrato proposto 0.1.0, com origem explícita, ausência como `null`, sessão/sequência e unidades.
 - Rota recomendada: simulador no navegador → backend Python local → integração física; arquitetura A permanece alternativa para demonstração autônoma.
 - Ambiente escolhido manualmente no MVP; ML e armazenamento persistente são expansões.
+- Revisão visual aprovada: base preta/branca, três botões de ambiente visíveis e cores de gráficos/indicadores por ambiente. Trocar ambiente ou cenário reinicia sessão/histórico; clicar no ambiente já ativo mantém a sessão. Controles de demonstração ficam recolhidos em área secundária.
 - Nenhum limiar real novo nem conversão de dBFS para dB SPL foi definido.
 
 ## Decisoes abertas
