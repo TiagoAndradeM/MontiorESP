@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#143d33">
+  <meta name="theme-color" content="#111111">
   <meta name="description" content="Monitor acadêmico de poluição sonora. MVP com dados simulados, independente do hardware.">
-  <title>FALCONS — Monitor sonoro</title>
+  <title>MONITOR SONORO</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./js/app.js"></script>
 </head>
-<body>
+<body data-environment="biblioteca">
   <a class="skip-link" href="#conteudo">Ir para o monitoramento</a>
   <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
     <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 10v4m4-7v10m5-15v20m5-16v12m4-9v6"/></symbol>
@@ -23,14 +23,12 @@
   </defs></svg>
 
   <aside class="sidebar" aria-label="Navegação do projeto">
-    <a class="brand" href="#visao-geral" aria-label="Falcons, visão geral">
+    <a class="brand" href="#visao-geral" aria-label="Monitor sonoro, visão geral">
       <span class="brand-mark"><svg class="icon"><use href="#i-wave"/></svg></span>
-      <span>FALCONS<span class="brand-caption">MONITOR SONORO</span></span>
+      <span>MONITOR SONORO</span>
     </a>
     <p class="nav-label">ESPAÇO DE TRABALHO</p>
     <nav><a class="nav-active" href="#visao-geral" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg>Visão geral<span class="nav-dot"></span></a></nav>
-    <div class="sidebar-note"><span class="sidebar-note-icon">↗</span><p>Entender o ambiente<br>começa por escutar.</p><span>MONITORAMENTO ACADÊMICO</span></div>
-    <div class="source-card"><span class="source-label"><i></i> FONTE DE DADOS</span><strong>Simulador local</strong><p>Explore os indicadores<br>sem conectar a placa.</p><span class="source-tag">SEM HARDWARE</span></div>
     <footer class="sidebar-footer"><strong>Sinais & Sistemas</strong><span>Projeto acadêmico · MVP 0.2</span></footer>
   </aside>
 
@@ -44,7 +42,14 @@
 
       <section class="environment-bar" aria-label="Ambiente monitorado">
         <span class="environment-icon"><svg class="icon"><use href="#i-book"/></svg></span>
-        <div class="environment-field"><label for="ambiente">AMBIENTE MONITORADO</label><select id="ambiente"><option value="biblioteca">Biblioteca</option><option value="sala_aula">Sala de aula</option><option value="oficina">Oficina / laboratório</option></select></div>
+        <div class="environment-field">
+          <span id="environment-label">AMBIENTE MONITORADO</span>
+          <div class="environment-options" role="group" aria-labelledby="environment-label">
+            <button class="environment-button" type="button" data-environment="biblioteca" aria-pressed="true" disabled>Biblioteca</button>
+            <button class="environment-button" type="button" data-environment="sala_aula" aria-pressed="false" disabled>Sala de aula</button>
+            <button class="environment-button" type="button" data-environment="oficina" aria-pressed="false" disabled>Laboratório / oficina</button>
+          </div>
+        </div>
         <div class="connection" role="status" aria-live="polite"><span id="connection-dot" class="status-dot"></span><span id="connection-label">Aguardando dados</span></div>
       </section>
 
@@ -56,7 +61,6 @@
           <div class="reading-footer"><span><i class="status-dot"></i><span id="update-age">Nenhuma amostra recebida</span></span><span>Escala relativa · sem calibração SPL</span></div>
         </section>
 
-        <section class="card controls-card" aria-labelledby="simulacao-titulo"><div class="section-heading"><h2 id="simulacao-titulo">Explore a simulação</h2><svg class="icon"><use href="#i-settings"/></svg></div><p class="controls-description">Troque o cenário e acompanhe a resposta dos indicadores.</p><label class="field-label" for="cenario">Cenário de demonstração</label><select id="cenario"><option value="transicao">Ciclo de estados</option><option value="baixo">Estado baixo</option><option value="moderado">Estado moderado</option><option value="elevado">Estado elevado</option><option value="ausente">Métricas indisponíveis</option><option value="qualidade">Janela inválida</option><option value="malformado">Mensagem malformada</option><option value="duplicata">Amostra duplicada</option><option value="fora_ordem">Amostra fora de ordem</option></select><div class="control-buttons"><button id="pause-button" class="button-primary" type="button" aria-pressed="false" disabled><span id="pause-icon" aria-hidden="true">Ⅱ</span><span id="pause-label">Pausar</span></button><button id="reset-button" class="button-secondary" type="button" disabled><svg class="icon"><use href="#i-reset"/></svg>Reiniciar</button></div><p class="cadence"><span class="status-dot"></span>Atualização a cada segundo</p></section>
       </div>
 
       <div id="data-alert" class="error-banner" role="status" aria-live="polite" hidden></div>
@@ -67,6 +71,10 @@
       </section>
 
       <details class="card technical-card" id="technical-details"><summary><span><svg class="icon"><use href="#i-wave"/></svg>Detalhes técnicos</span><span class="details-hint">Explore os dados da janela<svg class="icon"><use href="#i-arrow"/></svg></span></summary><div class="technical-content"><dl class="technical-metrics"><div><dt>RMS normalizado</dt><dd id="rms-value">Indisponível</dd></div><div><dt>RMS digital</dt><dd id="dbfs-value">Indisponível</dd></div><div><dt>Frequência dominante</dt><dd id="frequency-value">Indisponível</dd></div><div><dt>Janela / amostragem</dt><dd id="window-value">Indisponível</dd></div></dl><p id="quality-label" class="technical-note">Qualidade da janela: indisponível.</p><p class="technical-note">Bandas espectrais e classificação automática não são calculadas neste MVP. RMS digital em dBFS não equivale a dB SPL.</p><dl class="profile-list"><div><dt>Perfil de intensidade</dt><dd id="intensity-profile">Indisponível</dd></div><div><dt>Perfil de estado</dt><dd id="state-profile">Indisponível</dd></div><div><dt>Perfil de aquisição</dt><dd id="acquisition-profile">Indisponível</dd></div></dl></div></details>
+
+      <details class="simulation-controls"><summary><span><svg class="icon"><use href="#i-settings"/></svg>Controles da simulação</span><svg class="icon"><use href="#i-arrow"/></svg></summary>
+        <section class="controls-card" aria-labelledby="simulacao-titulo"><div class="section-heading"><h2 id="simulacao-titulo">Explore a simulação</h2></div><p class="controls-description">Troque o cenário e acompanhe a resposta dos indicadores.</p><label class="field-label" for="cenario">Cenário de demonstração</label><select id="cenario"><option value="transicao">Ciclo de estados</option><option value="baixo">Estado baixo</option><option value="moderado">Estado moderado</option><option value="elevado">Estado elevado</option><option value="ausente">Métricas indisponíveis</option><option value="qualidade">Janela inválida</option><option value="malformado">Mensagem malformada</option><option value="duplicata">Amostra duplicada</option><option value="fora_ordem">Amostra fora de ordem</option></select><div class="control-buttons"><button id="pause-button" class="button-primary" type="button" aria-pressed="false" disabled><span id="pause-icon" aria-hidden="true">Ⅱ</span><span id="pause-label">Pausar</span></button><button id="reset-button" class="button-secondary" type="button" disabled><svg class="icon"><use href="#i-reset"/></svg>Reiniciar</button></div><p class="cadence"><span class="status-dot"></span>Atualização a cada segundo</p></section>
+      </details>
 
       <footer class="page-footer"><span><svg class="icon"><use href="#i-wave"/></svg>Monitor Inteligente de Poluição Sonora</span><span>Feito para observar, pensado para evoluir.</span></footer>
       <noscript><p class="error-banner">Ative JavaScript para usar a simulação. Nenhum indicador é calculado sem ele.</p></noscript>

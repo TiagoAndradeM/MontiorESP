@@ -9,17 +9,28 @@ async function iniciar() {
   const validar = criarValidador(await resposta.json());
   const monitor = criarMonitor(validar);
   const renderizar = criarRenderizador();
-  const ambiente = document.getElementById('ambiente'), cenario = document.getElementById('cenario');
+  const ambientes = [...document.querySelectorAll('.environment-button[data-environment]')];
+  const cenario = document.getElementById('cenario');
   const pausar = document.getElementById('pause-button'), reiniciar = document.getElementById('reset-button');
-  let fonte, desligar, pausado = false;
+  let fonte, desligar, pausado = false, ambiente = document.body.dataset.environment;
   const atualizar = () => renderizar(monitor.snapshot(), { pausado });
   function novaSessao() {
     desligar?.(); monitor.reiniciar(); pausado = false;
-    fonte = criarFonteMock({ ambiente: ambiente.value, cenario: cenario.value });
+    fonte = criarFonteMock({ ambiente, cenario: cenario.value });
     desligar = conectarFonte(monitor, fonte, atualizar);
     atualizar();
   }
-  ambiente.addEventListener('change', novaSessao);
+  for (const botao of ambientes) {
+    botao.addEventListener('click', () => {
+      const escolhido = botao.dataset.environment;
+      if (escolhido === ambiente) return;
+      ambiente = escolhido;
+      document.body.dataset.environment = ambiente;
+      for (const opcao of ambientes) opcao.setAttribute('aria-pressed', String(opcao === botao));
+      novaSessao();
+    });
+    botao.disabled = false;
+  }
   cenario.addEventListener('change', novaSessao);
   reiniciar.addEventListener('click', novaSessao);
   pausar.addEventListener('click', () => { pausado = !pausado; fonte.pausar(pausado); atualizar(); });
