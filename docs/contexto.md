@@ -55,6 +55,8 @@ O README descreve V02 como validada em bancada e V03 como proposta de estabiliza
 
 ## Retomada
 
+Em 31/10/2026, foi preparado o [plano de coletas de 3/11](plano-coletas-ambientes-2026-11-03.md): piloto de 10 minutos por ambiente com o capturador serial existente, ficha de campo e repetições independentes propostas. **Nenhuma coleta física foi executada nesta etapa**; os perfis por ambiente, canal I²S da montagem atual e classificação continuam pendentes de evidência.
+
 Ler [tarefas](tarefas.md). Não transformar pendências em fatos. Ao encerrar nova sessão, registrar entrega, arquivos tocados, verificações, limitações e próxima tarefa. Não copiar dados pessoais ou credenciais para documentos.
 
 Para executar o MVP: entrar em `interface/`, rodar `python -m http.server 8000 --bind 127.0.0.1` e abrir `http://127.0.0.1:8000/`. Para validar: na raiz do projeto, `node scripts/verificar.mjs`. Próximo incremento recomendado: T02, backend local com mock e fonte HTTP. O plano de [deploy](deploy.md) pode ser executado como tarefa separada depois de revisar/integrar a branch.

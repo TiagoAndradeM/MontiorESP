@@ -17,6 +17,8 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 
 ## Próxima tarefa recomendada
 
+Para T03, o [protocolo de campo de 3/11](plano-coletas-ambientes-2026-11-03.md) está documentado. Preparar o protocolo não conclui T03: faltam as coletas reais, a confirmação do sketch/canal e a análise dos dados.
+
 T01A foi entregue após aprovação em 31/10, com o visual aplicado ao MVP original. T02, backend local com mock e fonte HTTP, continua planejada e não deve ser iniciada automaticamente. Merge e deploy também aguardam pedido próprio.
 
 ## Evidência da entrega T00
