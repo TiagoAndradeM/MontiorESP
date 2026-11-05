@@ -14,10 +14,13 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 | T06 | Planejada | Espectro e regras reais — integração/qualidade | P01/P02/P06, aquisição validada | Janelas, faixas e regras reproduzíveis, sem métrica inventada |
 | T07 | Planejada, opcional | Persistência — arquitetura/integração | P07 | Retenção e exportação definidas antes do desenvolvimento |
 | T08 | Planejada, opcional | ML — arquitetura/integração | P07, dataset | Separação treino/teste por sessões, modelo e avaliação documentados |
+| T09 | Planejada para quando a equipe tiver tempo | Nove LEDs por faixa — firmware/hardware | T06, P06/P09; [ADR-007](decisoes/007-nove-leds-por-faixa.md) | FFT e energia de baixas/médias/altas frequências verificadas; três LEDs por faixa com níveis testados no circuito |
 
 ## Próxima tarefa recomendada
 
 Para T03, o [protocolo de campo de 3/11](plano-coletas-ambientes-2026-11-03.md) está documentado. Preparar o protocolo não conclui T03: faltam as coletas reais, a confirmação do sketch/canal e a análise dos dados.
+
+Em 05/11, T09 foi registrada a pedido do usuário para adaptação futura. Nenhum dos nove LEDs, FFT ou novos limiares foi implementado nesta sessão.
 
 T01A foi entregue após aprovação em 31/10, com o visual aplicado ao MVP original. T02, backend local com mock e fonte HTTP, continua planejada e não deve ser iniciada automaticamente. Merge e deploy também aguardam pedido próprio.
 

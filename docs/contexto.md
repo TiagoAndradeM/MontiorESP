@@ -1,6 +1,6 @@
 # Contexto e estado atual
 
-Atualizado em 31/10/2026, America/Sao_Paulo. Planejamento e T01 foram concluídos em 30/10, com MVP simulado, Git/GitHub e commits estruturados. Em 31/10, o usuário aprovou a revisão visual no Figma e autorizou aplicá-la ao código original com novos commits.
+Atualizado em 05/11/2026, America/Sao_Paulo. Planejamento e T01 foram concluídos em 30/10, com MVP simulado, Git/GitHub e commits estruturados. Em 31/10, o usuário aprovou a revisão visual no Figma e autorizou aplicá-la ao código original com novos commits.
 
 Direção mais recente: revisão aprovada aplicada em `interface/`, preservando o mock e o contrato existentes. Arquivo: [MONITOR SONORO — Protótipo](https://www.figma.com/design/p2zKFdU84fims4MYEL7jRv). A página de revisão `13:2` tem três estados por formato (desktop e mobile); as bases originais `2:2` e `5:2` foram preservadas. A aplicação tem base preta/branca, três botões acessíveis e temas `#18844A`, `#2563EB` e `#EA580C`; controles da simulação recolhidos em `<details>` preservam RF09. T01A passou nos 15 testes e na conferência visual/teclado em 360 e 1280 px. Commit de implementação `98de808`, enviado à branch `feat/mvp-interface-simulada`. A fonte da aplicação permanece Segoe UI. Ver [protótipo Figma](prototipo-figma.md), [ADR-006](decisoes/006-interface-por-ambiente.md) e [QA](qa.md#resultado-de-t01a--31102026). Nenhum merge, deploy ou firmware foi executado.
 
@@ -39,6 +39,7 @@ O README descreve V02 como validada em bancada e V03 como proposta de estabiliza
 - Ambiente escolhido manualmente no MVP; ML e armazenamento persistente são expansões.
 - Revisão visual aprovada: base preta/branca, três botões de ambiente visíveis e cores de gráficos/indicadores por ambiente. Trocar ambiente ou cenário reinicia sessão/histórico; clicar no ambiente já ativo mantém a sessão. Controles de demonstração ficam recolhidos em área secundária.
 - Nenhum limiar real novo nem conversão de dBFS para dB SPL foi definido.
+- Em 05/11, o usuário confirmou para uma etapa futura a orientação do professor: **nove LEDs, três por faixa de baixas, médias e altas frequências**, com energia por banda calculada via FFT. Ver [ADR-007](decisoes/007-nove-leds-por-faixa.md). Sem alteração de firmware nesta sessão.
 
 ## Decisoes abertas
 
@@ -52,6 +53,7 @@ O README descreve V02 como validada em bancada e V03 como proposta de estabiliza
 | P06 | Frequência, FFT e bandas | Definir janela, resolução, faixas, normalização e orçamento de processamento | Campos espectrais reais |
 | P07 | Históricos persistentes e ML | Definir retenção, finalidade, dataset e critério de sucesso | Expansões posteriores |
 | P08 | Compatibilidade V03/core instalado | Compilar uma cópia controlada quando houver tarefa de firmware | Alteração/upload futuro |
+| P09 | Implementação física dos nove LEDs | Definir GPIOs, resistores, alimentação/corrente e padrão de acionamento dos três LEDs por faixa | Adaptação do hardware |
 
 ## Retomada
 
