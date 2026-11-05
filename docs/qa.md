@@ -76,3 +76,27 @@ Revisão visual aprovada aplicada ao código original. Commit de implementação
 - Capturas locais em `../../output/qa/monitor-sonoro-*.png`, fora do repositório, não disponíveis automaticamente em outro clone. A extração MCP do Figma estava sem cota; comparação feita com capturas aprovadas e os componentes originais.
 
 Esta verificação cobre o navegador conectado à sessão e os testes lógicos do MVP. Não é auditoria completa com leitores de tela/múltiplos navegadores, nem teste de bancada. Firmware, README raiz, `.gitignore`, dashboard serial e dados preexistentes permanecem fora dos commits desta revisão.
+
+<a id="correcao-de-inicializacao--05112026"></a>
+
+## Correção de inicialização — 05/11/2026
+
+Verificação automática local já executada: `node scripts/verificar.mjs` aprovou 30 testes Node, incluindo os 15 testes históricos do MVP. `python -B -m unittest discover -s tests -p test_servidor_interface.py -v` aprovou 5 testes Python da biblioteca padrão. Os testes HTTP usam somente uma porta efêmera em `127.0.0.1` e encerram o servidor ao terminar; também foram executados a partir da pasta pai do repositório, conferindo a resolução dos arquivos independentemente da pasta atual. A execução HTTP exigiu permissão de loopback no ambiente de teste.
+
+| Área | Evidência automática | Limite |
+|---|---|---|
+| Contrato inicial | Sucesso, erro HTTP/conexão, JSON inválido, prazo de 6 s para resposta/corpo e cancelamento exercitados com fontes de teste | Não comprova disponibilidade de rede externa ou hardware |
+| Bootstrap | Seleção dos ambientes separada dos módulos; carregamento, falha e watchdog de 10 s exercitados por eventos/relógio de teste | Modelo de DOM usado nos testes não substitui navegador real |
+| Servidor estático | HTML da interface e JSON canônico entregues; `.js` como `text/javascript`, `.json` como `application/json`; `Cache-Control: no-store`; raiz do repositório não publicada; porta ocupada rejeitada | Somente servidor estático local, sem endpoint de telemetria T02 |
+
+Conferência no navegador integrado concluída:
+
+- Em `127.0.0.1:8000`, os três ambientes ficaram prontos, com ponteiro de botão, temas corretos e até 60 amostras do mock. Menu sem transbordamento horizontal; console normal sem mensagens.
+- `app.js` retornando 404: alerta visível, menu continuou operando e **Tentar novamente** recuperou a simulação após restaurar o arquivo.
+- Contrato atrasado por 8 s: falha após o prazo de 6 s; troca de ambiente funcionou antes e depois do erro.
+- Módulo atrasado por 12 s: watchdog de 10 s exibiu a falha; chegada tardia não iniciou amostras.
+- `inicializacao.js` retornando 404: fallback do HTML mostrou alerta; nova tentativa recuperou a aplicação. A navegação de temas depende desse bootstrap, não do carregamento dos módulos da simulação.
+
+As falhas foram simuladas por arquivos/servidor auxiliar fora do repositório; esse servidor foi encerrado. Capturas locais em `../../output/qa/menu-ambientes-corrigido.png`, `falha-recuperavel.png` e `menu-mobile-corrigido.png`, fora do repositório e não disponíveis automaticamente em outro clone. Evidência limitada à sessão do navegador integrado e aos testes automáticos; não é auditoria completa de múltiplos navegadores.
+
+O lançador Windows é `Iniciar_Interface.cmd`; a janela do servidor precisa ficar aberta enquanto a interface estiver em uso. A correção não executou teste físico, firmware, novos LEDs, merge ou deploy.

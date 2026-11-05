@@ -8,9 +8,8 @@
   <title>MONITOR SONORO</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./js/app.js"></script>
 </head>
-<body data-environment="biblioteca">
+<body data-environment="biblioteca" data-startup-state="carregando">
   <a class="skip-link" href="#conteudo">Ir para o monitoramento</a>
   <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
     <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 10v4m4-7v10m5-15v20m5-16v12m4-9v6"/></symbol>
@@ -38,19 +37,19 @@
       <div class="page-heading"><div><p class="eyebrow">OBSERVAR. ENTENDER. TRANSFORMAR.</p><h1>Monitoramento sonoro<span>.</span></h1><p class="lead">Uma visão clara de como o seu ambiente se comporta.</p></div><span class="local-tag"><span class="status-dot"></span>Ambiente de demonstração</span></div>
 
       <div class="demo-notice"><svg class="icon"><use href="#i-info"/></svg><p><strong>Você está explorando uma simulação.</strong> Os indicadores são sintéticos e não representam medições reais.</p></div>
-      <div id="fatal-alert" class="error-banner" role="alert" hidden></div>
+      <div id="fatal-alert" class="error-banner" role="alert" hidden><p id="startup-message">Não foi possível iniciar a simulação. Verifique se o servidor local está aberto e tente novamente.</p><button id="retry-button" class="button-secondary startup-retry" type="button" onclick="window.location.reload()" hidden>Tentar novamente</button></div>
 
       <section class="environment-bar" aria-label="Ambiente monitorado">
         <span class="environment-icon"><svg class="icon"><use href="#i-book"/></svg></span>
         <div class="environment-field">
           <span id="environment-label">AMBIENTE MONITORADO</span>
           <div class="environment-options" role="group" aria-labelledby="environment-label">
-            <button class="environment-button" type="button" data-environment="biblioteca" aria-pressed="true" disabled>Biblioteca</button>
-            <button class="environment-button" type="button" data-environment="sala_aula" aria-pressed="false" disabled>Sala de aula</button>
-            <button class="environment-button" type="button" data-environment="oficina" aria-pressed="false" disabled>Laboratório / oficina</button>
+            <button class="environment-button" type="button" data-environment="biblioteca" aria-pressed="true">Biblioteca</button>
+            <button class="environment-button" type="button" data-environment="sala_aula" aria-pressed="false">Sala de aula</button>
+            <button class="environment-button" type="button" data-environment="oficina" aria-pressed="false">Laboratório / oficina</button>
           </div>
         </div>
-        <div class="connection" role="status" aria-live="polite"><span id="connection-dot" class="status-dot"></span><span id="connection-label">Aguardando dados</span></div>
+        <div class="connection" role="status" aria-live="polite"><span id="connection-dot" class="status-dot" data-status="aguardando"></span><span id="connection-label">Preparando simulação</span></div>
       </section>
 
       <div class="overview-grid">
@@ -80,5 +79,6 @@
       <noscript><p class="error-banner">Ative JavaScript para usar a simulação. Nenhum indicador é calculado sem ele.</p></noscript>
     </main>
   </div>
+  <script defer src="./js/inicializacao.js" onerror="document.body.dataset.startupState='erro';document.getElementById('fatal-alert').hidden=false;document.getElementById('retry-button').hidden=false;document.getElementById('connection-label').textContent='Falha ao iniciar';document.getElementById('connection-dot').dataset.status='erro'"></script>
 </body>
 </html>

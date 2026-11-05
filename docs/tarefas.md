@@ -7,6 +7,7 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 | T00 | Concluída | Planejamento e estrutura — arquitetura | Analisar referência antes de criar | Inventário, requisitos, comparação A/B, contrato e plano registrados; sem aplicação nova |
 | T01 | Concluída em 30/10, antecipada pelo usuário | MVP com mock — interface | T00, prompt de implementação | RF01–RF09 cobertos; 15 testes aprovados e QA visual/teclado, com limitações registradas |
 | T01A | Concluída em 31/10 | Aplicar revisão visual aprovada — interface | Aprovação do protótipo MONITOR SONORO | Marca, base preta/branca, três botões/temas, controles secundários; 15 testes e QA em 360/1280 px; commit `98de808` enviado à branch |
+| T01B | Concluída em 05/11 | Corrigir inicialização e acesso local — interface | T01A | Menu independente do carregamento; prazo/alerta/nova tentativa; lançador e servidor local com MIME/cache corretos; 30 testes Node e 5 Python aprovados; ambientes e recuperação conferidos no navegador integrado |
 | T02 | Planejada | Backend mínimo + fonte HTTP — integração | T01 | Endpoints de arquitetura, validação, ausência e polling funcionam; mesma renderização |
 | T03 | Bloqueada por evidência | Confirmar bancada e perfis — integração/qualidade | P01/P02/P03/P08 | Identificação de sketch/core/canal, procedimento e evidência reais registrados |
 | T04 | Planejada | Adaptador serial compatível — integração | T02, T03 para uso físico | Metadados corretos, unidades, sessão e ausência preservados |
@@ -17,6 +18,8 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 | T09 | Planejada para quando a equipe tiver tempo | Nove LEDs por faixa — firmware/hardware | T06, P06/P09; [ADR-007](decisoes/007-nove-leds-por-faixa.md) | FFT e energia de baixas/médias/altas frequências verificadas; três LEDs por faixa com níveis testados no circuito |
 
 ## Próxima tarefa recomendada
+
+T01B foi concluída: 30 testes Node e 5 Python aprovados, mais conferência no navegador integrado da inicialização normal, falhas/atrasos, menu e recuperação por nova tentativa. Ver [QA da correção](qa.md#correcao-de-inicializacao--05112026).
 
 Para T03, o [protocolo de campo de 3/11](plano-coletas-ambientes-2026-11-03.md) está documentado. Preparar o protocolo não conclui T03: faltam as coletas reais, a confirmação do sketch/canal e a análise dos dados.
 
@@ -46,3 +49,11 @@ Depois de revisar a demonstração, o usuário aprovou o visual e pediu commits 
 30/10/2026: `interface/`, `tests/`, `scripts/verificar.mjs`, `package.json` e workflows adicionados. Fonte mock e estado separados da renderização; contrato de distribuição conferido contra o canônico. Ambiente/cenário reiniciam sessão. Layout verificado em 360 e 1280 px; ausência, rejeição de JSON, pausa/desconexão e retorno observados. Histórico de 15 min e substituição de fonte verificados com relógio/fonte de teste, não com hardware. [QA detalhado](qa.md).
 
 Commits separados em branch própria. README preparado com staging seletivo para preservar alterações anteriores. Publicação Pages preparada, não executada; firmware, dashboard serial e dados históricos não foram incorporados aos commits do MVP.
+
+## Correção de inicialização em 05/11/2026
+
+T01B separa o menu de ambientes do carregamento dos módulos da simulação, mantendo os três botões habilitados. A carga do contrato é limitada a 6 s, incluindo a leitura do JSON; um watchdog de 10 s detecta a inicialização que não termina. Falhas mostram alerta e **Tentar novamente**, com pausa/reinício ainda desabilitados. A mudança de tema permanece no bootstrap clássico.
+
+`Iniciar_Interface.cmd` e `scripts/servir-interface.py` oferecem acesso estático em `127.0.0.1:8000`, com raiz de `interface/` independente da pasta de execução, MIME explícito de JS/JSON e `Cache-Control: no-store`. A janela precisa ficar aberta; Ctrl+C encerra o servidor. Porta ocupada é informada sem encerrar outro processo.
+
+Evidência: 30 testes Node e 5 Python aprovados; três ambientes e amostras do mock conferidos no navegador integrado. Falhas de módulo/contrato, prazos de 6 s/10 s, seleção durante espera/erro e recuperação por nova tentativa foram observados. Arquivos de teste de falhas ficaram fora do repositório e o servidor auxiliar foi encerrado. T02, firmware, nove LEDs, merge e deploy continuam fora deste escopo.

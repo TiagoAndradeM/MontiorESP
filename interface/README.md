@@ -4,11 +4,15 @@ Tela HTML/CSS/JavaScript, sem dependências de execução, sem build e sem placa
 
 ## Executar
 
-Nesta pasta: `python -m http.server 8000 --bind 127.0.0.1`.
+Na raiz do repositório, executar [Iniciar_Interface.cmd](../Iniciar_Interface.cmd). O lançador inicia o servidor e mantém mensagens de erro visíveis. **A janela do servidor precisa ficar aberta enquanto a interface estiver em uso.**
 
-Abrir `http://127.0.0.1:8000/`. Encerrar com Ctrl+C. Não abrir `index.html` por `file://`, pois módulos e carregamento do contrato precisam de HTTP.
+Alternativa pelo terminal, também na raiz: `python -B scripts/servir-interface.py`. Abrir `http://127.0.0.1:8000/` e encerrar o servidor com Ctrl+C. Se a porta estiver ocupada, usar `python -B scripts/servir-interface.py --port 8001` e abrir a URL informada. O servidor não encerra outros processos.
+
+Esse servidor publica somente a pasta `interface/`, resolvida pelo caminho do próprio script, com MIME explícito para JavaScript/JSON e `Cache-Control: no-store` para evitar arquivos de versões diferentes no cache. Não abrir `index.html` por `file://`, pois módulos e carregamento do contrato precisam de HTTP. O servidor estático local não é o backend de telemetria de T02.
 
 Escolher outro ambiente pelos três botões visíveis inicia uma sessão nova e limpa o histórico. Clicar no ambiente já ativo mantém a sessão. Biblioteca usa verde `#18844A`, Sala de aula usa azul `#2563EB` e Laboratório / oficina usa laranja `#EA580C`; gráficos e indicadores acompanham a escolha sobre a base preta/branca. Os botões têm indicação acessível de seleção e funcionam por teclado.
+
+Os três botões permanecem habilitados durante a inicialização e em caso de falha dos módulos da simulação. A seleção visual é ligada por um bootstrap clássico, separada do carregamento dos dados. O contrato tem prazo de 6 segundos para resposta e leitura do JSON; um watchdog de 10 segundos detecta a inicialização dos módulos que não termina. Falhas exibem uma mensagem e **Tentar novamente**; conferir se o servidor está aberto antes de tentar. Pausa e reinício só são liberados quando a simulação fica pronta.
 
 Abrir **Controles da simulação**, abaixo do dashboard, para trocar o cenário, pausar ou reiniciar. Trocar o cenário também inicia nova sessão e limpa o histórico. Pausar mantém a última leitura identificada e exercita desatualização em 3 s e desconexão em 10 s. Reiniciar limpa a sessão. Duplicatas não contam como dados novos. O gráfico guarda até 60 pontos em 60 segundos e não conecta lacunas.
 
@@ -18,13 +22,18 @@ A revisão visual aprovada em 31/10/2026 foi aplicada ao código, preservando o 
 
 Na raiz do repositório: `node scripts/verificar.mjs` ou `npm run check`. Node é somente ferramenta de desenvolvimento/teste; o navegador não depende dele. Nenhum `npm install` é necessário. Os testes usam relógio controlado para exercitar 15 minutos simulados sem esperar 15 minutos reais.
 
+Para o servidor estático: `python -B -m unittest discover -s tests -p test_servidor_interface.py -v`. Os testes usam uma porta local efêmera e encerram o servidor ao terminar. Em 05/11, passaram 30 testes Node e 5 testes Python. No navegador integrado, foram conferidos os três ambientes, falhas e atrasos de carregamento, alerta e recuperação por **Tentar novamente**. Ver [QA](../docs/qa.md#correcao-de-inicializacao--05112026).
+
 ## Organização
 
 - `js/validacao.js`: valida o subconjunto documentado do schema e regras semânticas.
 - `js/fontes/mock.js`: cenários determinísticos a 1 Hz.
 - `js/estado.js`: sessão, ordenação, frescor e histórico; interface de fonte substituível.
 - `js/componentes.js`: apresentação e gráfico SVG sem biblioteca.
-- `js/app.js`: liga controles, fonte e renderização.
+- `js/inicializacao.js`: bootstrap clássico, seleção de ambiente, watchdog e aviso de falha.
+- `js/carregamento.js`: carregamento do contrato com prazo, cancelamento e mensagens de erro.
+- `js/app.js`: liga controles, fonte e renderização após carregar o contrato.
+- `../scripts/servir-interface.py` e `../Iniciar_Interface.cmd`: servidor estático local e lançador Windows.
 - `contratos/telemetria.schema.json`: cópia de distribuição do contrato canônico de `docs/contratos`, conferida pelo CI para evitar divergência. Serve junto da interface, sem expor a raiz do projeto.
 
 Perfis `demo-*` não são limiares acústicos. Frequência/bandas/classificação permanecem indisponíveis. [Contrato completo](../docs/contrato-dados.md), [estratégia de deploy](../docs/deploy.md).

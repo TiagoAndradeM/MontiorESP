@@ -4,6 +4,8 @@ Atualizado em 05/11/2026, America/Sao_Paulo. Planejamento e T01 foram concluído
 
 Direção mais recente: revisão aprovada aplicada em `interface/`, preservando o mock e o contrato existentes. Arquivo: [MONITOR SONORO — Protótipo](https://www.figma.com/design/p2zKFdU84fims4MYEL7jRv). A página de revisão `13:2` tem três estados por formato (desktop e mobile); as bases originais `2:2` e `5:2` foram preservadas. A aplicação tem base preta/branca, três botões acessíveis e temas `#18844A`, `#2563EB` e `#EA580C`; controles da simulação recolhidos em `<details>` preservam RF09. T01A passou nos 15 testes e na conferência visual/teclado em 360 e 1280 px. Commit de implementação `98de808`, enviado à branch `feat/mvp-interface-simulada`. A fonte da aplicação permanece Segoe UI. Ver [protótipo Figma](prototipo-figma.md), [ADR-006](decisoes/006-interface-por-ambiente.md) e [QA](qa.md#resultado-de-t01a--31102026). Nenhum merge, deploy ou firmware foi executado.
 
+Em 05/11, T01B corrigiu e validou a inicialização: os três botões permanecem habilitados, com seleção de tema no bootstrap clássico separada dos módulos de dados. Contrato: prazo de 6 s para HTTP/JSON; módulos: watchdog de 10 s, alerta e botão de nova tentativa. O lançador `Iniciar_Interface.cmd` inicia um servidor estático local com raiz absoluta em `interface/`, MIME explícito de JS/JSON e `Cache-Control: no-store`. Passaram 30 testes Node e 5 Python; no navegador integrado, foram conferidos os ambientes, falhas/atrasos e recuperação. Ver [QA da correção](qa.md#correcao-de-inicializacao--05112026). Esse servidor estático não implementa T02 nem integração com hardware.
+
 ## Objetivo e limites
 
 Monitor de baixo custo para ambientes acadêmicos: biblioteca, sala de aula e oficina/laboratório. Hardware informado: ESP32 DEVKIT V1, INMP441, protoboard, LEDs e Wi-Fi futuro. Interface deve funcionar sem placa, recebendo indicadores já processados. Não é instrumento calibrado de avaliação de exposição sonora.
@@ -20,6 +22,7 @@ Monitor de baixo custo para ambientes acadêmicos: biblioteca, sala de aula e of
 | Novo MVP | `interface/`, módulos JS nativos, mock 1 Hz, histórico 60 s, tratamento de falhas e dados ausentes | Somente simulado; não recebe serial/Wi-Fi nem executa ML |
 | Revisão visual aprovada | Figma `13:2` aplicado à interface; 15 testes e QA visual/teclado aprovados | Interface simulada; nenhum teste físico |
 | Validação | 15 testes nativos Node, incluindo 15 min de relógio simulado; QA no navegador | Teste lógico/visual não comprova aquisição física |
+| Correção de inicialização em 05/11 | 30 testes Node e 5 testes Python aprovados; ambientes, falhas, atrasos e recuperação conferidos no navegador integrado | Interface simulada; sem teste físico ou auditoria de múltiplos navegadores |
 | Deploy | CI automático e publicação manual da main preparados para GitHub Pages | Site ainda não publicado; precisa integrar branch e habilitar Pages |
 
 O README descreve V02 como validada em bancada e V03 como proposta de estabilização ainda dependente de teste. Essas são declarações da documentação anterior, não validações feitas hoje.
@@ -61,4 +64,4 @@ Em 31/10/2026, foi preparado o [plano de coletas de 3/11](plano-coletas-ambiente
 
 Ler [tarefas](tarefas.md). Não transformar pendências em fatos. Ao encerrar nova sessão, registrar entrega, arquivos tocados, verificações, limitações e próxima tarefa. Não copiar dados pessoais ou credenciais para documentos.
 
-Para executar o MVP: entrar em `interface/`, rodar `python -m http.server 8000 --bind 127.0.0.1` e abrir `http://127.0.0.1:8000/`. Para validar: na raiz do projeto, `node scripts/verificar.mjs`. Próximo incremento recomendado: T02, backend local com mock e fonte HTTP. O plano de [deploy](deploy.md) pode ser executado como tarefa separada depois de revisar/integrar a branch.
+Para executar o MVP: abrir `Iniciar_Interface.cmd` na raiz ou rodar `python -B scripts/servir-interface.py`; manter a janela aberta e acessar `http://127.0.0.1:8000/`. Porta alternativa: `--port 8001`. Para validar: na raiz do projeto, `node scripts/verificar.mjs` e `python -B -m unittest discover -s tests -p test_servidor_interface.py -v`. T01B foi conferida; T02, backend local com mock e fonte HTTP, continua um incremento separado. O plano de [deploy](deploy.md) pode ser executado como tarefa própria depois de revisar/integrar a branch.
