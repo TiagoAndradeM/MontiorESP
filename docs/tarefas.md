@@ -19,6 +19,8 @@ Estados: concluída, pronta, planejada, bloqueada por evidência. “Pronta” s
 
 ## Próxima tarefa recomendada
 
+Em 10/11/2026, foi publicado o [guia de coleta da biblioteca](guia-coleta-biblioteca.md), junto do sketch V02 de referência na branch compartilhável. O capturador CSV já estava publicado. A execução e a conferência do CSV da biblioteca ainda são trabalho de campo da equipe; não marcar T03 concluída com base apenas no guia.
+
 T01B foi concluída: 30 testes Node e 5 Python aprovados, mais conferência no navegador integrado da inicialização normal, falhas/atrasos, menu e recuperação por nova tentativa. Ver [QA da correção](qa.md#correcao-de-inicializacao--05112026).
 
 Para T03, o [protocolo de campo de 3/11](plano-coletas-ambientes-2026-11-03.md) está documentado. Preparar o protocolo não conclui T03: faltam as coletas reais, a confirmação do sketch/canal e a análise dos dados.
